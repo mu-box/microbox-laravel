@@ -4,11 +4,16 @@ set -e
 # Installing Laravel message
 printf "\n+ Installing Laravel (This may take a few minutes)...\n"
 
+cd /tmp
+
 # Download the Laravel installer
-composer require "laravel/installer"
+composer global require "laravel/installer"
 
 # Create a new Laravel app
-laravel new
+laravel new app
+cp -r $(find app -maxdepth 1 -mindepth 1) /app/
+
+cd /app
 
 # Update the database connection variables in .env
 sed -i -e "
@@ -49,6 +54,7 @@ s/^PUSHER_APP_SECRET.*$/# PUSHER_APP_SECRET= */g
 " .env.prod
 
 # Add Nanobox landing page and assets
+mkdir -p public/css
 cp quickstart/static/favicon.png public/favicon.png
 cp quickstart/static/styles.css public/css/app.css
 cp quickstart/static/index.html resources/views/welcome.blade.php

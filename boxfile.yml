@@ -1,13 +1,14 @@
 ### This boxfile.yml is designed to generate a Laravel project when first run.
 ### If you have an existing Laravel project and are using this as a template,
-### Remove lines 37 and 38 and uncomment lines 35 and 36 (the npm commands)
+### Remove lines 39 and 40 and uncomment lines 37 and 38 (the npm commands)
 ###
 run.config:
-  engine: php
+  engine: php#feature/wordpress
   engine.config:
-    runtime: php-7.1
+    runtime: php-7.4
     webserver: nginx
     document_root: public
+    nginx_try_files: '$uri index.html index.php /index.php?$query_string'
     extensions:
       - pdo
       - mbstring
@@ -19,11 +20,12 @@ run.config:
       - ctype
       - xmlwriter
       - pdo_mysql
+      - fileinfo
 
+  dev_packages:
+    - unzip
   # Use node/npm locally for mix
-  # dev_packages:
   #   - nodejs
-  #   - python-2.7
   # cache_dirs:
   #   - node_modules
   # extra_path_dirs:
